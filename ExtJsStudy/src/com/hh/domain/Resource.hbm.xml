@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-15 16:30:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.hh.domain.Resource" table="RESOURE">
+        <id name="id" type="int">
+          <column name="resource_id" />
+          <generator class="sequence">  
+          <param name="sequence">RESOURCE_SEQ</param>  
+          </generator>  
+        </id>
+        <property name="url" type="java.lang.String">
+            <column name="resource_url" />
+        </property>
+        <property name="text" type="java.lang.String">
+            <column name="resource_name" />
+        </property>
+        <property name="leaf" type="int">
+            <column name="leaf" />
+        </property>
+         <property name="pid" type="int">
+            <column name="pid" />
+        </property>
+        <!-- 关联关系映射，一个资源对应多个角色(资源)-->
+         <set name = "roles" table = "role_resource" inverse="true" lazy="false">
+        	<key column="resource_id"></key>
+        	<many-to-many column="role_id" class="com.hh.domain.Role"></many-to-many>
+         </set>
+      </class>
+</hibernate-mapping>

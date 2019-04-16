@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+             http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+     <!-- 加载jdbc属性文件 -->
+     <context:component-scan base-package="com.hh"/>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				</list>
+		</property>
+	</bean>
+	
+
+	 <!-- 配置连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${driverClass}" />
+        <property name="jdbcUrl" value="${url}" />
+        <property name="user" value="${username}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="initialPoolSize" value="3"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="minPoolSize" value="1"/>
+        <property name="acquireIncrement" value="3"/>
+        <property name="maxIdleTime" value="60"/>
+    </bean> 
+    <!-- 配置SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        
+        <!-- 依赖数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- Hibernate框架相关配置 -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.formate_sql">true</prop>
+                <!--  <prop key="hbm2ddl.auto">update</prop>-->
+            </props>
+        </property>
+        <property name="mappingLocations">
+            <value>classpath:com/hh/domain/*.hbm.xml</value>
+        </property>
+    </bean> 
+    <!-- 声明式事务管理,采用AOP形式切入 -->
+    <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+   <!-- advice  -->
+  <tx:advice id="txAdvice" transaction-manager="txManager">  
+    <tx:attributes>  
+        <tx:method name="insert*" propagation="REQUIRED" />  
+        <tx:method name="update*" propagation="REQUIRED" /> 
+        <tx:method name="delete*" propagation="REQUIRED" />   
+        <tx:method name="find*" propagation="REQUIRED" read-only="true" />  
+        <tx:method name="query*" propagation="REQUIRED" read-only="true" />  
+    </tx:attributes>  
+</tx:advice>  
+  
+  <aop:config proxy-target-class="true">
+    <aop:pointcut id="interceptorPointCuts" expression="execution( * com.hh.serviceImpl.*.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
+</aop:config>    
+   
+   
+   
+    <bean id="scoredaoImpl" class="com.hh.daoImpl.scoreDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="userdaoImpl" class="com.hh.daoImpl.userDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="roledaoImpl" class="com.hh.daoImpl.roleDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="resourcedaoImpl" class="com.hh.daoImpl.resourceDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="repertorydaoImpl" class="com.hh.daoImpl.repertoryDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    
+    
+     <bean id="scoreServiceImpl" class="com.hh.serviceImpl.ScoreServiceImpl">
+         <property name="scoreDao" ref="scoredaoImpl"></property>
+    </bean>
+     
+   
+    
+   
+    
+     <bean id="repertoryServiceImpl" class="com.hh.serviceImpl.RepertoryServiceImpl">
+       <property name="repertoryDao" ref="repertorydaoImpl"></property>
+    
+    </bean>
+    <bean id="userServiceImpl" class="com.hh.serviceImpl.UserServiceImpl">
+       <property name="userDao" ref="userdaoImpl"></property>
+    </bean>
+    <bean id="roleServiceImpl" class="com.hh.serviceImpl.RoleServiceImpl">
+       <property name="roleDao" ref="roledaoImpl"></property>
+    </bean>
+    <bean id="resourceServiceImpl" class="com.hh.serviceImpl.ResourceServiceImpl">
+       <property name="resourceDao" ref="resourcedaoImpl"></property>
+    </bean>
+    
+    
+     <!--配置Structs的Action -->
+     
+     <bean name="/repertory" class="com.hh.action.RepertoryAction">
+     </bean>
+      <bean name="/login" class="com.hh.action.LoginAction">
+     </bean>
+     <bean name="/user" class="com.hh.action.UserAction">
+     </bean>
+      <bean name="/role" class="com.hh.action.RoleAction">
+     </bean>
+      <bean name="/resource" class="com.hh.action.ResourceAction">
+     </bean>
+     
+     
+ </beans>

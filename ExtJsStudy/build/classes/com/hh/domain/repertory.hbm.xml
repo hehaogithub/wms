@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-15 16:30:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.hh.domain.Repertory" table="REPERTORY">
+        <id name="repertory_id" type="int">
+          <column name="repertory_id" />
+          <generator class="sequence">  
+          <param name="sequence">REPERTORY_SEQ</param>  
+          </generator>  
+        </id>
+        <property name="repertory_name" type="java.lang.String">
+            <column name="repertory_name" />
+        </property>
+         <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        <!-- 关联关系映射，一个仓库对应多个用户-->
+        <set name = "users" table = "user" inverse="true" cascade="save-update,delete" lazy="false">
+        	<key column="repertory_id"></key>
+        	<one-to-many class="com.hh.domain.User"></one-to-many>
+         </set>
+       </class>
+</hibernate-mapping>

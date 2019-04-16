@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap        
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"        
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Score">
+
+    <typeAlias alias="Score" type="com.hh.domain.Score" />
+    
+    <insert id="insertScore" parameterClass="Score">
+        insert into score(sname,ssex,scomputer,senglish) values (#sname#,#ssex#,#scomputer#,#senglish#)
+    </insert>
+    
+    <delete id="deleteById" parameterClass="int">
+         delete from score where sid=#id#
+    </delete>
+    
+    <update id="updateScore" parameterClass="Score">
+         update Score set sname=#sname#,ssex=#ssex#,scomputer=#scomputer#,senglish=#senglish# where sid=#sid#
+    </update>
+    
+    <select id="queryById" parameterClass="int" resultClass="Score">
+         select * from score where sid=#id#
+    </select>
+    
+    <select id="queryAllScores" resultClass="Score">
+         select * from score
+    </select>
+</sqlMap>

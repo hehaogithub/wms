@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-15 16:30:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.hh.domain.Score" table="SCORE">
+        <id name="sid" type="int">
+          <column name="sid" />
+          <generator class="sequence">  
+          <param name="sequence">SCORE_SEQ</param>  
+          </generator>  
+        </id>
+        <property name="sname" type="java.lang.String">
+            <column name="sname" />
+        </property>
+        <property name="ssex" type="java.lang.String">
+            <column name="ssex" />
+        </property>
+        <property name="scomputer" type="int">
+            <column name="scomputer" />
+        </property>
+        <property name="senglish" type="int">
+            <column name="senglish" />
+        </property>
+    </class>
+</hibernate-mapping>

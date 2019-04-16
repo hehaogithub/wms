@@ -1,0 +1,7 @@
+.add{ background-image:url(images/page_add.png)!important;}
+.search{background-image:url(images/preview.png)!important;}
+.delete{ background-image:url(images/page_del.png)!important;}
+.refresh{background-image:url(images/page_refresh.png)!important;}
+.modify{background-image:url(images/page_edit_1.png)!important;}
+.addr-panel .x-grid-header-ct{border-width: 1px 0 0 0 !important;}
+.addr-panel .x-panel-header{border-width:0;}

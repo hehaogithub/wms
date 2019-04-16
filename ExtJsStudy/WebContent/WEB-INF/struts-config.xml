@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+ 
+	<!-- 配置ActionFormBean -->
+	<form-beans> 
+		
+		<form-bean name="addScoreForm" type="com.hh.domain.Score" /> 
+		<form-bean name="userForm" type="com.hh.actionform.UserForm" /> 
+		<form-bean name="repertoryForm" type="com.hh.domain.Repertory" /> 
+		<form-bean name="roleForm" type="com.hh.actionform.RoleForm"/> 
+		<form-bean name="resourceForm" type="com.hh.domain.Resource" /> 
+    </form-beans>
+
+	<!-- Action映射 -->
+	<action-mappings> 
+	    <!-- 登录页面 -->
+		<action name="userForm" path="/login" scope="request"  parameter="reqCode"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+			<forward name="loginView" path="/login.jsp" /> 
+		</action>
+        <action name="repertoryForm" path="/repertory" scope="request"  parameter="reqCode"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+			
+		</action> 
+		<action name="userForm" path="/user" scope="request"  parameter="reqCode"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+			
+		</action> 
+		<action name="roleForm" path="/role" scope="request"  parameter="reqCode"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+			
+		</action>  
+		<action name="resourceForm" path="/resource" scope="request"  parameter="reqCode"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+			
+		</action>       
+	
+		<!-- 
+		<action name="addScoreForm" path="/add" scope="request"  parameter="reqCode"
+			type="com.hh.action.addScoreAction">
+	    </action> 
+		<action name="userForm" path="/login" scope="request"  parameter="reqCode"
+			type="com.hh.action.addScoreAction">
+		<forward name="message" path="/index.jsp" />
+	   </action> 登录页面 --> 
+   </action-mappings>
+  
+
+</struts-config>

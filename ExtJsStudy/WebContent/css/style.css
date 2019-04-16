@@ -1,0 +1,15 @@
+.header { background: #7F99BE url(../image/layout-browser-hd-bg.gif) repeat-x center;} 
+.header h1 {font-size: 16px;color: #fff;padding: 3px 10px; font-family:"微软雅黑","黑体"}
+
+.tabs{} 
+.tabs{background-image: url(../image/icon/bulletin_manager.gif) !important;} 
+.manage{background-image: url(../image/icon/admin.gif) !important;} 
+.home{background-image: url(../image/icon/home.gif) !important; line-height:30px;} 
+.icon-menu{background-image: url(../icon/image/sys.gif) !important;}
+.grid-add{background-image: url(../image/icon/add.png) !important;}
+.grid-delete{background-image: url(../image/icon/delete.png) !important;}
+.grid-mif{background-image: url(../image/icon/edit.gif) !important;}
+.grid-input{background-image: url(../image/icon/group_gear.gif) !important;}
+.icon-first.home{background-image: url(../image/icon/home.gif) !important; line-height:30px;} 
+.classDiv1{font-size: 12px; color: #808000; } 
+.classDiv2{font-size: 12px; color: #3300CC; }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-15 16:30:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.hh.domain.Role" table="ROLE">
+        <id name="role_id" type="int">
+          <column name="role_id" />
+          <generator class="sequence">  
+          <param name="sequence">ROLE_SEQ</param>  
+          </generator>  
+        </id>
+        <property name="role_name" type="java.lang.String">
+            <column name="role_name" />
+        </property>
+        <!-- 关联关系映射，一个角色对应多个用户-->
+        <set name = "users" table = "user" inverse="true" lazy="false">
+        	<key column="role_id"></key>
+        	<one-to-many class="com.hh.domain.User"></one-to-many>
+        </set>
+         <!-- 关联关系映射，一个角色对应多个权限(资源)-->
+         <set name = "resources" table = "role_resource" inverse="false" cascade="save-update" lazy="false">
+        	<key column="role_id"></key>
+        	<many-to-many column="resource_id" class="com.hh.domain.Resource"></many-to-many>
+         </set>
+      </class>
+</hibernate-mapping>
