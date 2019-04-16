@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.struts.action.ActionForm;
 
-public class Role extends ActionForm {
+public class Role extends   ActionForm {
 	private int role_id;// 角色编号
 	private String role_name;// 角色名称
 	private Set<User> users;// 角色包含的用户
